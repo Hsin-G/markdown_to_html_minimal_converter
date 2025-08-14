@@ -1,36 +1,77 @@
 package main
 
 import (
-    "io/ioutil"
-    "log"
-    "os"
-    "strings"
+	"bytes"
+	"fmt"
+	"os"
+	"strings"
 
-    "github.com/yuin/goldmark"
+	"github.com/yuin/goldmark"
 )
 
+func checkArgs(state *bool)bool{
+	argc := len(os.Args)
+
+	if argc < 2 || argc > 4 {
+		return false
+	}
+	if !strings.HasSuffix(os.Args[1], ".md") && !strings.HasSuffix(os.Args[1], ".mk"){
+		return false 
+	}
+	if argc > 2 && (os.Args[2] != "-o" || !strings.HasSuffix(os.Args[3], ".html")){
+		return false
+	}
+	if argc > 2{
+		*state = true
+	}
+	return true
+}
+
+func argsError(){
+	fmt.Println("Error: Invalid Argument!")
+	fmt.Println("-Usage: ")
+	fmt.Println("-Usage:	 ./<executable> main.go <markdown_file>")
+	fmt.Println("					./<executable> main.go <markdown_file> -o <output_file.html>")
+}
+
 func main() {
-    if len(os.Args) < 2 {
-        log.Fatal("Usage: go run main.go fichier.mk")
-    }
-    inPath := os.Args[1]
+	//check argument
+	state := false 
+	if !checkArgs(&state) {
+		argsError()
+		return
+	}
+	
+	// Read Markdown file
+	input, err := os.ReadFile(os.Args[1])
+	if err != nil {
+		fmt.Println("Read error: ", err)
+		return
+	}
 
-    input, err := ioutil.ReadFile(inPath)
-    if err != nil {
-        log.Fatal(err)
-    }
+	// Convert Markdown -> HTML
+	var buf bytes.Buffer
+	md := goldmark.New()
+	err = md.Convert(input, &buf)
+	if err != nil {
+		fmt.Println("Error during conversion: ", err)
+		return
+	}
 
-    var buf strings.Builder
-    if err := goldmark.Convert(input, &buf); err != nil {
-        log.Fatal(err)
-    }
-
-    outPath := strings.TrimSuffix(inPath, ".mk") + ".html"
-    err = ioutil.WriteFile(outPath, []byte(buf.String()), 0644)
-    if err != nil {
-        log.Fatal(err)
-    }
-
-    log.Printf("Converti %s en %s\n", inPath, outPath)
+	// Write in the HTML file
+	if state == true {
+		err = os.WriteFile(os.Args[3], buf.Bytes(), 0644)
+	}else{
+		err = os.WriteFile("Output.html", buf.Bytes(), 0644)
+	}
+	if err != nil {
+		fmt.Println("Write error: ", err)
+		return
+	}
+	if state == true {
+		fmt.Println("HTML file: ", os.Args[3])
+	}else{
+		fmt.Println("HTML file: output.html")
+	}
 }
 
