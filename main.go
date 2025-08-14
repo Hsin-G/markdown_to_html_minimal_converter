@@ -28,14 +28,13 @@ func checkArgs(state *bool)bool{
 }
 
 func argsError(){
-	fmt.Println("Error: Invalid Argument!")
-	fmt.Println("-Usage: ")
+	fmt.Println("Error: Invalid Argument!\n")
 	fmt.Println("-Usage:	 ./<executable> main.go <markdown_file>")
-	fmt.Println("					./<executable> main.go <markdown_file> -o <output_file.html>")
+	fmt.Println("	 ./<executable> main.go <markdown_file> -o <output_file.html>\n")
 }
 
 func main() {
-	//check argument
+	//check if argument is valid
 	state := false 
 	if !checkArgs(&state) {
 		argsError()
