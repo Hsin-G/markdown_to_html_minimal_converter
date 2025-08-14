@@ -16,3 +16,12 @@ go mod tidy
 <pre><code class="language-bash">go build main.go
 ./&lt;executable&gt; main.go ./example/example.md
 </code></pre>
+<h2>Example</h2>
+<p>Input (<code>example.md</code>)</p>
+<pre><code class="language-markdown"># Hello
+This is **Markdown**.
+</code></pre>
+<p>Output (<code>output.html</code>)</p>
+<pre><code class="language-html">&lt;h1&gt;Hello&lt;/h1&gt;
+&lt;p&gt;This is &lt;strong&gt;Markdown&lt;/strong&gt;.&lt;/p&gt;
+</code></pre>

@@ -20,3 +20,14 @@ or
 go build main.go
 ./<executable> main.go ./example/example.md
 ```
+## Example
+Input (`example.md`)
+```markdown
+# Hello
+This is **Markdown**.
+```
+Output (`output.html`)
+```html
+<h1>Hello</h1>
+<p>This is <strong>Markdown</strong>.</p>
+```
