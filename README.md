@@ -18,7 +18,7 @@ go mod tidy
 or
 ```bash
 go build main.go
-./<executable> main.go ./example/example.md
+./<executable> ./example/example.md
 ```
 ## Example
 Input (`example.md`)
