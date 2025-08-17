@@ -13,12 +13,14 @@ cd markdown-to-html
 go mod tidy
 ```
 ## Usage
-`go run main.go ./example/example.md`
+```bash
+go run main.go ./example/example.md
+```
 
 or
 ```bash
 go build main.go
-./<executable> main.go ./example/example.md
+./<executable> ./example/example.md
 ```
 ## Example
 Input (`example.md`)

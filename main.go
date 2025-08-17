@@ -7,6 +7,8 @@ import (
 	"strings"
 
 	"github.com/yuin/goldmark"
+	"github.com/yuin/goldmark/extension"		//some markdown extension
+	"github.com/yuin/goldmark-highlighting" //highlighting syntax extension
 )
 
 func checkArgs(state *bool)bool{
@@ -33,6 +35,47 @@ func argsError(){
 	fmt.Println("	 ./<executable> <markdown_file> -o <output_file.html>\n")
 }
 
+func render(htmlContent string, state bool) bool{
+	htmlT := `<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<style>
+	%s
+	</style>
+</head>
+<body>
+	<div class="content" >
+%s
+	</div>
+</body>
+</html>
+`
+	var render string
+
+	htmlContent = fmt.Sprintf("%s", htmlContent)
+	input, err := os.ReadFile("./css/standard.css")
+	if (err != nil){
+		fmt.Println("Read css error: ", err)
+		render = fmt.Sprintf(htmlT, "", htmlContent)
+	}else{
+		css := fmt.Sprintf("%s", string(input))
+		render = fmt.Sprintf(htmlT, css, htmlContent)
+	}
+	
+	if state == true {
+		err = os.WriteFile(os.Args[3], []byte(render), 0644)
+	}else{
+		err = os.WriteFile("Output.html", []byte(render), 0644)
+	}
+	if err != nil {
+		fmt.Println("Write error: ", err)
+		return false
+	}
+	//os.WriteFile("test.html", []byte(render), 0644)
+	return true
+}
+
 func main() {
 	//check if argument is valid
 	state := false 
@@ -50,7 +93,8 @@ func main() {
 
 	// Convert Markdown -> HTML
 	var buf bytes.Buffer
-	md := goldmark.New()
+	md := goldmark.New(goldmark.WithExtensions(extension.GFM,
+	 highlighting.NewHighlighting(highlighting.WithStyle("monokai"))))
 	err = md.Convert(input, &buf)
 	if err != nil {
 		fmt.Println("Error during conversion: ", err)
@@ -58,13 +102,8 @@ func main() {
 	}
 
 	// Write in the HTML file
-	if state == true {
-		err = os.WriteFile(os.Args[3], buf.Bytes(), 0644)
-	}else{
-		err = os.WriteFile("Output.html", buf.Bytes(), 0644)
-	}
-	if err != nil {
-		fmt.Println("Write error: ", err)
+	outputHTML:= buf.Bytes()
+	if !render(string(outputHTML), state){
 		return
 	}
 	if state == true {
