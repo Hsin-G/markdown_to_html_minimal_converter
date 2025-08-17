@@ -12,7 +12,7 @@ import (
 func get_config() config {
 	var conf config
 
-	// check if config file exist
+	// check if config file exist or not with os.State
 	_, check := os.Stat("./conf.json")
 	if os.IsNotExist(check){
 		check = os.WriteFile("./conf.json", []byte(`{"css_file":"./css/standard.css","hightlight_style":"monokai"}`), 0644)
@@ -28,7 +28,7 @@ func get_config() config {
 		conf.Highlight = "monokai"
 		return conf
 	}
-	// decode json 
+	// decode json with Unmarshal
 	err = json.Unmarshal(data, &conf)
 	if err != nil {
 		fmt.Println("Unmarshal Error: ", err)
@@ -37,7 +37,7 @@ func get_config() config {
 	return conf
 }
 
-// check programme argument
+// check program argument
 func checkArgs(state *bool)bool{
 	argc := len(os.Args)
 

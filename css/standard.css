@@ -1,6 +1,6 @@
 /*Standard CSS*/
 body {
-  font-size: 13px;
+  font-size: 12px;
   background: #000;
   font-family: Arial, sans-serif;
 }
@@ -9,7 +9,7 @@ body {
   color: #bbb;
   padding: 10px 10px;
   border-radius: 4px;
-  background: #111;
+  background: #151515;
   box-sizing: border-box;
 }
 

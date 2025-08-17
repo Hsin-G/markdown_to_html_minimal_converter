@@ -4,22 +4,19 @@ A simple Go program that converts a Markdown (`.md` or `.mk`) file into an HTML 
 
 ## Features
 - Converts `.md` and `.mk` files to HTML
+- Costumizable HTML output file with css
 - Simple CLI usage
 
 ## Installation
 ```bash
-git clone https://github.com/yourusername/markdown-to-html.git
+git clone https://github.com/Hsin-G/markdown_to_html_minimal_converter.git
 cd markdown-to-html
 go mod tidy
+go build .
 ```
 ## Usage
-`go run main.go ./example/example.md`
+`./<executable> ./example/example.md`
 
-or
-```bash
-go build main.go
-./<executable> ./example/example.md
-```
 ## Example
 Input (`example.md`)
 ```markdown

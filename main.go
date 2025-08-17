@@ -13,13 +13,13 @@ import (
 	"github.com/yuin/goldmark-highlighting" 
 )
 
-// config sruct
+// config represents the json config
 type config struct{
 	CSS_file  string  `json:"css_file"`
 	Highlight string  `json:"hightlight_style"`
 }
 
-// return an HTML template
+// html_template return an HTML template
 func html_template() string {
 	htmlT := `<!DOCTYPE html>
 <html>
@@ -39,15 +39,16 @@ func html_template() string {
 	return htmlT
 }
 
+// render create the output html file
 func render(htmlContent string, state bool, conf config) bool{
 
 	var render string
-	// transform []byte into a string
+
 	htmlContent = fmt.Sprintf("%s", htmlContent)
 	// Read CSS file
 	input, err := os.ReadFile(conf.CSS_file)
 	if (err != nil){
-		fmt.Println("Read css error: ", err)
+		fmt.Println("Reading css file error: ", err)
 		render = fmt.Sprintf(html_template(), "", htmlContent)
 	}else{
 		css := fmt.Sprintf("%s", string(input))

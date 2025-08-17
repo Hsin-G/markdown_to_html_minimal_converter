@@ -5,7 +5,7 @@
 	<style>
 /*Standard CSS*/
 body {
-  font-size: 13px;
+  font-size: 12px;
   background: #000;
   font-family: Arial, sans-serif;
 }
@@ -14,7 +14,7 @@ body {
   color: #bbb;
   padding: 10px 10px;
   border-radius: 4px;
-  background: #111;
+  background: #151515;
   box-sizing: border-box;
 }
 
@@ -43,18 +43,17 @@ pre {
 <h2>Features</h2>
 <ul>
 <li>Converts <code>.md</code> and <code>.mk</code> files to HTML</li>
+<li>Costumizable HTML output file with css</li>
 <li>Simple CLI usage</li>
 </ul>
 <h2>Installation</h2>
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;"><code><span style="display:flex;"><span>git clone https://github.com/yourusername/markdown-to-html.git
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;"><code><span style="display:flex;"><span>git clone https://github.com/Hsin-G/markdown_to_html_minimal_converter.git
 </span></span><span style="display:flex;"><span>cd markdown-to-html
 </span></span><span style="display:flex;"><span>go mod tidy
+</span></span><span style="display:flex;"><span>go build .
 </span></span></code></pre><h2>Usage</h2>
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;"><code><span style="display:flex;"><span>go run main.go ./example/example.md
-</span></span></code></pre><p>or</p>
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;"><code><span style="display:flex;"><span>go build main.go
-</span></span><span style="display:flex;"><span>./&lt;executable&gt; ./example/example.md
-</span></span></code></pre><h2>Example</h2>
+<p><code>./&lt;executable&gt; ./example/example.md</code></p>
+<h2>Example</h2>
 <p>Input (<code>example.md</code>)</p>
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;"><code><span style="display:flex;"><span># Hello
 </span></span><span style="display:flex;"><span>This is <span style="font-weight:bold">**Markdown**</span>.
