@@ -10,7 +10,7 @@ A simple Go program that converts a Markdown (`.md` or `.mk`) file into an HTML 
 ## Installation
 ```bash
 git clone https://github.com/Hsin-G/markdown_to_html_minimal_converter.git
-cd markdown-to-html
+cd markdown_to_html_minimal_converter
 go mod tidy
 go build .
 ```
